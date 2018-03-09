@@ -1,37 +1,39 @@
-## Welcome to GitHub Pages
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Opacity</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"
+    integrity="sha512-C7BBF9irt5R7hqbUm2uxtODlUVs+IsNu2UULGuZN7gM+k/mmeG4xvIEac01BtQa4YIkUpp23zZC4wIwuXaPMQA=="
+    crossorigin=""></script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.1.2/dist/esri-leaflet.js"
+    integrity="sha512-ouokQ1RIIoqPTZKwlapdxHO5VWFoAi8wE+SwhSX89Ifac0w3p+H2da4oqHvRsBTIpNLewzAZU7gRVDFXyXcfjA=="
+    crossorigin=""></script>
+  <style>
+    body { margin:0; padding:0; }
+    #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
 
-You can use the [editor on GitHub](https://github.com/geospatialology/esri-leaflet-testing/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+<script>
+  // make a new map object and zoom to BC
+  var map = L.map('map').setView([55.435571, -125.570122], 6);
+  // add a standard basemap to the map
+  L.esri.basemapLayer('Topographic').addTo(map);
+  var parks = L.tileLayer.wms("http://openmaps.gov.bc.ca/geo/pub/WHSE_ADMIN_BOUNDARIES.CLAB_NATIONAL_PARKS/ows?", {
+      layers: 'WHSE_ADMIN_BOUNDARIES.CLAB_NATIONAL_PARKS',
+      format: 'image/png',
+      transparent: true,
+      opacity: 0.5,
+  }).addTo(map);
+</script>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/geospatialology/esri-leaflet-testing/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+</body>
+</html>
