@@ -17,22 +17,58 @@
   <style>
     body { margin:0; padding:0; }
     #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+    #opac_in {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+      background: white;
+      padding: 1em;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+      border-radius: 4px;
+    }
+
+    #opac_in input {
+      display: inline-block;
+      border: 1px solid #999;
+      font-size: 14px;
+      border-radius: 4px;
+      height: 28px;
+      line-height: 28px;
+    }
   </style>
 </head>
 <body>
 <div id="map"></div>
-
+<div id="opac_in">
+  <h3>Example Loading of National Parks in BC Using Opacity Input</h3>
+  <p>Type Opacity in "X.X" Format & Click "Load Map"</p>
+  <p>Press "Reset" to Enter Another Opacity Value & "Load Map" to Preview</p>
+  <input type="text" id="mapOpacity" value="X.X">
+  <button onClick="loadMap(document.getElementById('mapOpacity').value)">Load Map</button>
+  <button onClick="reset()">Reset</button>
 <script>
-  // make a new map object and zoom to BC
-  var map = L.map('map').setView([55.435571, -125.570122], 6);
-  // add a standard basemap to the map
-  L.esri.basemapLayer('Topographic').addTo(map);
-  var parks = L.tileLayer.wms("http://openmaps.gov.bc.ca/geo/pub/WHSE_ADMIN_BOUNDARIES.CLAB_NATIONAL_PARKS/ows?", {
-      layers: 'WHSE_ADMIN_BOUNDARIES.CLAB_NATIONAL_PARKS',
-      format: 'image/png',
-      transparent: true,
-      opacity: 0.5,
-  }).addTo(map);
+
+    // make a new map object and zoom to BC
+    var map = L.map('map').setView([51.4666667,-116.5833333], 8);
+    // add a standard basemap to the map
+    L.esri.basemapLayer('Topographic').addTo(map);
+    // set opacity from input
+
+  function loadMap(in_opac){
+
+      var parks = L.tileLayer.wms("http://openmaps.gov.bc.ca/geo/pub/WHSE_ADMIN_BOUNDARIES.CLAB_NATIONAL_PARKS/ows?", {
+          layers: 'WHSE_ADMIN_BOUNDARIES.CLAB_NATIONAL_PARKS',
+          format: 'image/png',
+          transparent: true,
+          opacity: in_opac,
+      }).addTo(map);
+  }
+
+  function reset() {
+      location.reload();
+  }
+
 </script>
 
 </body>
